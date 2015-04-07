@@ -189,11 +189,19 @@ attribute 'rs-mysql/schedule/minute',
           :description => 'The minute to schedule the backup on. This value should abide by crontab syntax. Example: 30',
           :recipes => ['rs-mysql::schedule'],
           :required => 'required'
-attribute 'rs-mysql/dns/master_fqdn',
-          :display_name => 'MySQL Database FQDN',
-          :description => 'The fully qualified domain name of the MySQL master database server.',
+
+attribute 'slice_rs-mysql/dns/hostname',
+          :display_name => 'MySQL Database Hostname',
+          :description => 'The hostname name of the MySQL master database server.',
           :required => 'optional',
           :recipes => ['rs-mysql::master']
+
+attribute 'slice_rs-mysql/dns/domain',
+          :display_name => 'MySQL Database Domain',
+          :description => 'The domain name of the MySQL master database server.',
+          :required => 'optional',
+          :recipes => ['rs-mysql::master']
+
 attribute 'rs-mysql/dns/user_key',
           :display_name => 'DNS User Key',
           :description => 'The user key to access/modify the DNS records.',
