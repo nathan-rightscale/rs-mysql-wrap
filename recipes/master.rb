@@ -1,16 +1,15 @@
 chef_gem 'chef-rewind'
-chef_gem 'fog'
 
 require 'chef/rewind'
 
-master_fqdn = "#{node['slice_rs-mysql']['dns']['hostname']}.#{{node['slice_rs-mysql']['dns']['domain']}"
-node['rs-mysql']['dns']['master_fqdn'] = master_fqdn
+master_fqdn = "#{node['slice_rs-mysql']['dns']['hostname']}.#{node['slice_rs-mysql']['dns']['domain']}"
+node.override['rs-mysql']['dns']['master_fqdn'] = master_fqdn
 
 include_recipe "rs-mysql::master"
 
 dns_name = master_fqdn.split('.').first
 
-rewind "dns[#{dns_name}]" do
+rewind :dns => dns_name  do
   provider 'dns_dnsmadeeasy_api20'
   domain domain_name
   credentials(
