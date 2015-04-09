@@ -4,8 +4,9 @@ maintainer_email 'you@example.com'
 license          'all_rights'
 description      'Installs/Configures slice_rs-mysql'
 long_description 'Installs/Configures slice_rs-mysql'
-version          '0.0.2'
+version          '0.0.12'
 
+depends 'mysql'
 depends 'rs-mysql', '1.1.6'
 
 recipe 'slice_rs-mysql::default', 'Sets up a standalone MySQL server'

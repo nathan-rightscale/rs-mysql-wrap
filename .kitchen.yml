@@ -35,6 +35,7 @@ suites:
                           
   - name: master
     run_list:
+      - recipe[slice_rs-mysql::default]
       - recipe[slice_rs-mysql::master]
     provisioner:
       solo_rb:
@@ -57,5 +58,5 @@ suites:
         instance_uuid: '1111111'
       slice_rs-mysql:
         dns:
-          hostname: master.common
-          domain: example.com
+          #hostname: master.common
+          #domain: example.com

@@ -26,3 +26,23 @@ else
   missing_dns_creds.map! { |cred| "rs-mysql/dns/#{cred}" }
   log "Following DNS credentials are missing #{missing_dns_creds.join(', ')}! Skipping DNS setting..."
 end
+
+# rs-mysql::stripe contains a bug that deletes the mysql directory
+# causing the service to re-initialize the database after execution
+# The code below attempts to fix this
+def slice_install_grants_cmd
+  str = '/usr/bin/mysql'
+  str << ' -u root '
+  node['mysql']['server_root_password'].empty? ? str << ' < /etc/mysql_grants.sql' : str << " --password=#{node['mysql']['server_root_password']} < /etc/mysql_grants.sql"
+end
+
+service "mysql" do
+  action :restart
+end
+
+cmd = slice_install_grants_cmd
+
+execute 'slice_install-grants' do
+  command cmd
+  action :run
+end
