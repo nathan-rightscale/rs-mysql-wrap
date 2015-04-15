@@ -8,6 +8,7 @@ version          '0.0.12'
 
 depends 'mysql'
 depends 'rs-mysql', '1.1.6'
+depends 'database'
 
 recipe 'slice_rs-mysql::default', 'Sets up a standalone MySQL server'
 recipe 'slice_rs-mysql::collectd', 'Sets up collectd monitoring for MySQL server'

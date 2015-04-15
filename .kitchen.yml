@@ -24,12 +24,16 @@ suites:
       rs-mysql:
         backup:
           lineage: 'lineage'
+        schedule:
+          enable: 'true'
+          hour: '23'
+          minute: '00'
         server_root_password: rootpass
         server_repl_password: realpass
         server_usage: dedicated
-        application_username: appuser
-        application_password: apppass
-        application_database_name: app_test
+        application_username: 'appuser'
+        application_password: 'apppass'
+        application_database_name: '*.*'
       rightscale:
         instance_uuid: '1111111'
                           
