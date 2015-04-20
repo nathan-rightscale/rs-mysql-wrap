@@ -9,6 +9,7 @@ version          '0.0.14'
 depends 'mysql'
 depends 'rs-mysql', '1.1.6'
 depends 'database'
+depends 'yum'
 
 recipe 'slice_rs-mysql::default', 'Sets up a standalone MySQL server'
 recipe 'slice_rs-mysql::collectd', 'Sets up collectd monitoring for MySQL server'
@@ -22,6 +23,7 @@ recipe 'slice_rs-mysql::decommission', 'Destroys LVM conditionally, detaches and
                                  ' be used as a decommission recipe in a RightScale ServerTemplate.'
 recipe 'slice_rs-mysql::schedule', 'Enable/disable periodic backups based on rs-mysql/schedule/enable'
 recipe 'slice_rs-mysql::dump_import', 'Download and import mysql dump file.'
+recipe 'slice_rs-mysql::flush_cache', 'Flushes the yum cache.'
 
 attribute 'rs-mysql/server_usage',
           :display_name => 'Server Usage',

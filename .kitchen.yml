@@ -15,7 +15,7 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[slice_rs-mysql::default]
+      - recipe[slice_rs-mysql::flush_cache]
     attributes:
       cloud:
         provider: 'vagrant'
