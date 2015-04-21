@@ -4,7 +4,7 @@ maintainer_email 'you@example.com'
 license          'all_rights'
 description      'Installs/Configures slice_rs-mysql'
 long_description 'Installs/Configures slice_rs-mysql'
-version          '0.0.21'
+version          '0.0.22'
 
 depends 'mysql'
 depends 'rs-mysql', '1.1.6'

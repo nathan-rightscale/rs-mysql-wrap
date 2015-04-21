@@ -1,4 +1,4 @@
-include_recipe "yum_ius::default"
+include_recipe "yum-ius"
 
 chef_gem 'chef-rewind'
 
