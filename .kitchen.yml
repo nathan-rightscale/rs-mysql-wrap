@@ -15,8 +15,8 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[slice_rs-mysql::default]
       - recipe[slice_rs-mysql::install_ius]
+      - recipe[slice_rs-mysql::default]
     attributes:
       cloud:
         provider: 'vagrant'

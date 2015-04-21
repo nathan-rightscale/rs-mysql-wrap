@@ -1,5 +1,3 @@
-include_recipe "yum-ius"
-
 chef_gem 'chef-rewind'
 
 require 'chef/rewind'
