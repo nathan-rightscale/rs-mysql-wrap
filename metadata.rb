@@ -4,7 +4,7 @@ maintainer_email 'you@example.com'
 license          'all_rights'
 description      'Installs/Configures slice_rs-mysql'
 long_description 'Installs/Configures slice_rs-mysql'
-version          '0.0.23'
+version          '0.0.27'
 
 depends 'mysql'
 depends 'rs-mysql', '1.1.6'
@@ -239,3 +239,9 @@ attribute 'rs-mysql/import/dump_file',
                           ' Example: dumpfile_20140102.gz',
           :required => 'optional',
           :recipes => ['slice_rs-mysql::dump_import']
+
+attribute 'slice_rs-mysql/mysql/log_bin',
+          :display_name => 'MySQL bin-log location',
+          :description => 'If set, this will override the default location of the bin-logs.',
+          :required => 'optional',
+          :recipes => ['slice_rs-mysql::default']

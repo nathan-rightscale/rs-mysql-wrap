@@ -2,6 +2,11 @@ chef_gem 'chef-rewind'
 
 require 'chef/rewind'
 
+if node['slice_rs-mysql']['mysql']['log_bin'] != nil
+  node.force_override['mysql']['server']['directories']['bin_log_dir'] = node['slice_rs-mysql']['mysql']['log_bin']
+  node.force_override['mysql']['tunable']['log_bin'] = "#{node['slice_rs-mysql']['mysql']['log_bin']}/mysql-bin"
+end
+
 master_fqdn = "#{node['slice_rs-mysql']['dns']['hostname']}.#{node['slice_rs-mysql']['dns']['domain']}"
 node.override['rs-mysql']['dns']['master_fqdn'] = master_fqdn
 
@@ -27,22 +32,24 @@ else
   log "Following DNS credentials are missing #{missing_dns_creds.join(', ')}! Skipping DNS setting..."
 end
 
-# rs-mysql::stripe contains a bug that deletes the mysql directory
-# causing the service to re-initialize the database after execution
-# The code below attempts to fix this
-def slice_install_grants_cmd
-  str = '/usr/bin/mysql'
-  str << ' -u root '
-  node['mysql']['server_root_password'].empty? ? str << ' < /etc/mysql_grants.sql' : str << " --password=#{node['mysql']['server_root_password']} < /etc/mysql_grants.sql"
-end
+# Manually running the recipe as a operational script fixes this problem.
 
-service "mysql" do
-  action :restart
-end
+# # rs-mysql::stripe contains a bug that deletes the mysql directory
+# # causing the service to re-initialize the database after execution
+# # The code below attempts to fix this
+# def slice_install_grants_cmd
+#   str = '/usr/bin/mysql'
+#   str << ' -u root '
+#   node['mysql']['server_root_password'].empty? ? str << ' < /etc/mysql_grants.sql' : str << " --password=#{node['mysql']['server_root_password']} < /etc/mysql_grants.sql"
+# end
 
-cmd = slice_install_grants_cmd
+# service "mysql" do
+#   action :restart
+# end
 
-execute 'slice_install-grants' do
-  command cmd
-  action :run
-end
+# cmd = slice_install_grants_cmd
+
+# execute 'slice_install-grants' do
+#   command cmd
+#   action :run
+# end

@@ -37,6 +37,9 @@ suites:
         application_database_name: '*.*'
       rightscale:
         instance_uuid: '1111111'
+      slice_rs-mysql:
+        mysql:
+          log_bin: '/slice/mysqldirs/mysql_binlogs'
                           
   - name: master
     run_list:
