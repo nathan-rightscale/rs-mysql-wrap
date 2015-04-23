@@ -4,7 +4,7 @@ maintainer_email 'you@example.com'
 license          'all_rights'
 description      'Installs/Configures slice_rs-mysql'
 long_description 'Installs/Configures slice_rs-mysql'
-version          '0.0.27'
+version          '0.0.28'
 
 depends 'mysql'
 depends 'rs-mysql', '1.1.6'
@@ -245,3 +245,9 @@ attribute 'slice_rs-mysql/mysql/log_bin',
           :description => 'If set, this will override the default location of the bin-logs.',
           :required => 'optional',
           :recipes => ['slice_rs-mysql::default']
+
+attribute 'slice_rs-mysql/backup/device_excludes',
+          :display_name => 'Backup Device Excludes',
+          :description => 'If set, this will exclude a device from the list of devices during a backup.',
+          :required => 'optional',
+          :recipes => ['slice_rs-mysql::backup']
