@@ -249,5 +249,6 @@ attribute 'slice_rs-mysql/mysql/log_bin',
 attribute 'slice_rs-mysql/backup/device_excludes',
           :display_name => 'Backup Device Excludes',
           :description => 'If set, this will exclude a device from the list of devices during a backup.',
+          :type => "array",
           :required => 'optional',
           :recipes => ['slice_rs-mysql::backup']
