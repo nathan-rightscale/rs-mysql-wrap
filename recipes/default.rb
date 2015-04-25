@@ -7,7 +7,22 @@ if node['slice_rs-mysql']['mysql']['log_bin'] != nil
   node.force_override['mysql']['tunable']['log_bin'] = "#{node['slice_rs-mysql']['mysql']['log_bin']}/mysql-bin"
 end
 
+node['mysql']['server']['packages'].each do |name|
+  package name do
+    version node['slice_rs-mysql']['mysql']['version']
+    action :install
+  end
+end
+
+node['mysql']['client']['packages'].each do |name|
+  package name do
+    version node['slice_rs-mysql']['mysql']['version']
+    action :install
+  end
+end
+
 include_recipe 'database::mysql'
+
 include_recipe "rs-mysql::default"
 
 mysql_connection_info = {
@@ -16,7 +31,7 @@ mysql_connection_info = {
   :password => node['rs-mysql']['server_root_password']
 }
 
-rewind mysql_database: 'application database' do
+rewind :mysql_database => 'application database' do
   connection mysql_connection_info
   database_name node['rs-mysql']['application_database_name']
   action :create

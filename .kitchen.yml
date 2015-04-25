@@ -17,7 +17,6 @@ suites:
     run_list:
       - recipe[slice_rs-mysql::install_ius]
       - recipe[slice_rs-mysql::default]
-      - recipe[slice_rs-mysql::backup]
     attributes:
       cloud:
         provider: 'vagrant'
@@ -41,8 +40,15 @@ suites:
       slice_rs-mysql:
         mysql:
           log_bin: '/slice/mysqldirs/mysql_binlogs'
+          version: '5.5.42-1.ius.centos6'
         backup:
           device_excludes: ["/dev/xvdh"]
+
+  - name: client
+    run_list:
+      - recipe[slice_rs-mysql::install_ius]
+      - recipe[slice_rs-mysql::client]
+
   - name: master
     run_list:
       - recipe[slice_rs-mysql::default]

@@ -4,7 +4,7 @@ maintainer_email 'you@example.com'
 license          'all_rights'
 description      'Installs/Configures slice_rs-mysql'
 long_description 'Installs/Configures slice_rs-mysql'
-version          '0.0.28'
+version          '0.0.30'
 
 depends 'mysql'
 depends 'rs-mysql', '1.1.6'
@@ -252,3 +252,9 @@ attribute 'slice_rs-mysql/backup/device_excludes',
           :type => "array",
           :required => 'optional',
           :recipes => ['slice_rs-mysql::backup']
+
+attribute 'slice_rs-mysql/mysql/version',
+          :display_name => 'MySQL Version',
+          :description => 'This must match the version reported by the repositories. If not set, the latest mysql55 package will be installed.',
+          :required => 'optional',
+          :recipes => ['slice_rs-mysql::default']
